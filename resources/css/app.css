@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .active {
+        @apply border-b-2 border-b-indigo-500 text-indigo-500;
+    }
+
+    .input {
+        @apply block w-full shadow-sm rounded border border-gray-400 p-1 focus:border-indigo-800 focus:ring focus:ring-indigo-200 focus:outline-none focus:shadow-md;
+    }
+
+    .is-invalid {
+        @apply border-red-500
+    }
+
+    .label {
+        @apply block mb-1 text-gray-800 font-medium;
+    }
+
+    .btn-success {
+        @apply flex justify-between bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white cursor-pointer;
+    }
+
+    .disabled {
+        @apply opacity-40
+    }
+
+    .loading {
+        @apply inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white;
+    }
+}
