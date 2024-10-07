@@ -40,12 +40,16 @@
                         <div v-if="editId === b.id">
                             <form @submit.prevent="update(b.id)"
                                 class="flex flex-col md:flex-row md:justify-start gap-3">
-                                <input v-model="editForm.nama" type="text" class="input">
+                                <input v-model="editForm.nama" type="text" class="input"
+                                    :class="{ 'is-invalid': editForm.errors.nama }">
                                 <SubmitButton :processing="editForm.processing" class="btn-success" type="submit">
                                     Simpan
                                 </SubmitButton>
                                 <button class="btn-secondary" @click.prevent="clearEditId">Batal</button>
                             </form>
+                            <InvalidFeedback v-if="editForm.errors.nama">
+                                {{ editForm.errors.nama }}
+                            </InvalidFeedback>
                         </div>
                         <div v-else>
                             {{ b.nama }}
