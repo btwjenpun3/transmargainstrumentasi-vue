@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,9 @@ class LaporanController extends Controller
      */
     public function create()
     {
-        return inertia('Laporan/Create');
+        return inertia('Laporan/Create', [
+            'barang' => Barang::all()
+        ]);
     }
 
     /**
@@ -29,9 +32,9 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'      => 'required',
-            'jabatan'   => 'required',
-            'rencanaKerja' => 'required'
+            'nama'          => 'required',
+            'jabatan'       => 'required',
+            'rencanaKerja'  => 'required'
         ]);
 
         return redirect()->back();

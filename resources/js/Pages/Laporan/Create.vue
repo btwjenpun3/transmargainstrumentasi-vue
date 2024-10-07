@@ -50,13 +50,19 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-end mt-3">
-                <button class="btn-success" type="submit" :class="{ 'disabled': form.processing }">
-                    <div v-if="form.processing" class="loading"></div>
-                    <div v-else>
-                        Submit
+            <div class="col-span-2 mt-3">
+                <label class="label">Perlengkapan</label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <div v-for="b in barang" class="flex justify-start">
+                        <input id="checkbox" type="checkbox" class="me-1">
+                        <label for="checkbox">{{ b.nama }}</label>
                     </div>
-                </button>
+                </div>
+            </div>
+            <div class="flex justify-end mt-3">
+                <SubmitButton :processing="form.processing">
+                    Submit
+                </SubmitButton>
             </div>
         </form>
     </Content>
@@ -66,6 +72,7 @@
 import { useForm } from '@inertiajs/vue3';
 import Content from '../../Components/UI/Content.vue'
 import InvalidFeedback from '../../Components/UI/InvalidFeedback.vue';
+import SubmitButton from '../../Components/UI/SubmitButton.vue';
 
 const form = useForm({
     nama: null,
@@ -75,6 +82,10 @@ const form = useForm({
     tidakSesuaiSchedule: false,
     rencanaTambahan: false,
     lainLain: false,
+})
+
+defineProps({
+    barang: Object
 })
 
 const create = () => form.post(route('laporan.store'))

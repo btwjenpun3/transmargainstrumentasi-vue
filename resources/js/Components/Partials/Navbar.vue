@@ -10,6 +10,8 @@
                         :class="{ 'active': isActive('/') }">Home</Link>
                     <Link :href="route('laporan.create')" class="hidden md:block text-md font-medium cursor-pointer"
                         :class="{ 'active': isActive('/laporan/create') }">Laporan</Link>
+                    <Link :href="route('barang.index')" class="hidden md:block text-md font-medium cursor-pointer"
+                        :class="{ 'active': isActive('/barang*') }">Master Barang</Link>
                     <div class="md:ms-auto md:cursor-pointer">
                         <div class="hidden md:flex md:justify-between">
                             <div class="w-7 me-3">
@@ -59,6 +61,10 @@
                             <li class="py-2">
                                 <Link :href="route('laporan.create')"
                                     :class="{ 'active': isActive('/laporan/create') }">Laporan</Link>
+                            </li>
+                            <li class="py-2">
+                                <Link :href="route('barang.index')" :class="{ 'active': isActive('/barang') }">
+                                Master Barang</Link>
                             </li>
                         </ul>
                     </div>

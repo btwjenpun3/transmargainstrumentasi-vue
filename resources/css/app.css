@@ -19,8 +19,20 @@
         @apply block mb-1 text-gray-800 font-medium;
     }
 
+    .btn-primary {
+        @apply flex justify-between bg-indigo-700 text-white px-4 py-2 rounded-lg hover:bg-indigo-400 hover:text-white cursor-pointer;
+    }
+
     .btn-success {
         @apply flex justify-between bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white cursor-pointer;
+    }
+
+    .btn-secondary {
+        @apply flex justify-between bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-500 hover:text-white cursor-pointer;
+    }
+
+    .btn-danger {
+        @apply flex justify-between bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-400 hover:text-white cursor-pointer;
     }
 
     .disabled {
