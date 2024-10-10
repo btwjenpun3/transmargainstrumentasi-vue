@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Laporan;
+use App\Traits\GenerateLaporanNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
+    use GenerateLaporanNumber;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        return inertia('Laporan/Index', [
+            'laporan' => Laporan::with('user')->orderBy('id', 'desc')->paginate(10)
+        ]);
     }
 
     /**
@@ -31,21 +37,41 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama'          => 'required',
-            'jabatan'       => 'required',
-            'rencanaKerja'  => 'required'
+        $validated = $request->validate([
+            'rencana_kerja' => 'required|string',
+            'lokasi'        => 'required|string|max:255'
         ]);
 
-        return redirect()->back();
+        DB::beginTransaction();
+
+        try {
+            $no = $this->generateLaporanNumber();
+
+            $validated = array_merge($validated, ['user_id' => Auth::id(), 'status' => 'on_progress', 'no' => $no]);
+
+            $laporan = Laporan::create($validated);
+
+            $laporan->barang()->attach($request->perlengkapan);
+
+            DB::commit();
+
+            return back()->with('success', 'Laporan berhasil di buat');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        return inertia('Laporan/Show', [
+            'laporan' => Laporan::with(['user', 'barang'])->find($request->laporan)
+        ]);
     }
 
     /**
@@ -59,9 +85,23 @@ class LaporanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Laporan $laporan)
     {
         //
+    }
+
+    public function approve(Request $request, Laporan $laporan)
+    {
+        $laporan->update(['status' => 'approve']);
+
+        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil di approve');
+    }
+
+    public function reject(Request $request, Laporan $laporan)
+    {
+        $laporan->update(['status' => 'reject']);
+
+        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil di reject');
     }
 
     /**

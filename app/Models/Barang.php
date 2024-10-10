@@ -10,4 +10,9 @@ class Barang extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function laporan()
+    {
+        return $this->belongsToMany(Laporan::class, 'laporan_barang')->withTimestamps();
+    }
 }

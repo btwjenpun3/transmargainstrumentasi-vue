@@ -16,7 +16,7 @@
             </div>
             <div class="flex justify-end mt-3">
                 <SubmitButton :processing="form.processing">
-                    Submit
+                    Tambah
                 </SubmitButton>
             </div>
         </form>
@@ -28,15 +28,15 @@
         <Table>
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border px-4 py-2 text-left">#</th>
-                    <th class="border px-4 py-2 text-left">Nama</th>
-                    <th class="border px-4 py-2 text-left">Aksi</th>
+                    <th class="th">#</th>
+                    <th class="th">Nama</th>
+                    <th class="th">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-if="barang.data.length" v-for="(b, index) in barang.data" :key="b.id" class="hover:bg-gray-50">
-                    <td class="border px-4 py-2 text-left">{{ index + 1 }}</td>
-                    <td class="border px-4 py-2 text-left w-full">
+                    <td class="td">{{ index + 1 }}</td>
+                    <td class="td w-full">
                         <div v-if="editId === b.id">
                             <form @submit.prevent="update(b.id)"
                                 class="flex flex-col md:flex-row md:justify-start gap-3">
@@ -55,7 +55,7 @@
                             {{ b.nama }}
                         </div>
                     </td>
-                    <td class="border px-4 py-2 text-left">
+                    <td class="td">
                         <div class="flex justify-start">
                             <button :class="editId === b.id ? 'hidden' : null" id="content" class="btn-primary me-3"
                                 @click.prevent="edit(b.id, b.nama)">

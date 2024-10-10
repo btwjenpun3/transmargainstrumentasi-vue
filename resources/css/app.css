@@ -42,4 +42,16 @@
     .loading {
         @apply inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white;
     }
+
+    .heading {
+        @apply text-xl font-medium border-b pb-2
+    }
+
+    .th {
+        @apply border px-4 py-2 text-left
+    }
+
+    .td {
+        @apply border px-4 py-2 text-left
+    }
 }
